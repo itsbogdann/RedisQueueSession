@@ -6,7 +6,16 @@ const redisUrl = CONSTS.getRedisUrl();
 // Session queue creation
 const sessionQueue = new Queue(TEXTS.QUEUE.CREATE_SESSION, redisUrl);
 
+/**
+ * @desc Queue Manager object
+ */
 const scheduler = {
+  /**
+   * @desc Add job to existing session queue if the same job isn't already
+   * @desc in the queue and active, to account for idempotency
+   * @param jobData
+   * @returns {Promise}
+   */
   addJobToQueue: async (jobData) => {
     const inputSessionId = jobData.properties.clientSessionId;
     const existingJobs = await sessionQueue.getJobs(["active"]);
@@ -35,12 +44,20 @@ const scheduler = {
     });
   },
 
+  /**
+   * @desc Close the session queue
+   */
   closeSessionQueue: async () => {
     await sessionQueue.close();
     process.exit(1);
   },
 };
 
+/**
+ * Processor for the jobs in the session queue
+ * @event
+ * @returns {Promise}
+ */
 sessionQueue.process(TEXTS.QUEUE.CREATE_SESSION, async ({ data }) => {
   // Shorthand for accessibility
   const prop = data.properties;

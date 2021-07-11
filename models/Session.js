@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Types = Schema.Types;
 
+/**
+ * @desc Define the Session schema structure for Mongoose
+ * @constant {object}
+ */
 const SessionSchema = new Schema({
   _id: Types.ObjectId,
   localId: String,

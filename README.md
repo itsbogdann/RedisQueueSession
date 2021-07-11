@@ -2,8 +2,8 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
+* [Technologies](#technologies-used)
+* [Setup](#setup-and-running)
 
 ## General Info
 Idempotent NodeJS App which creates/updates a MongoDb Session from Redis Queue job/s.
@@ -15,7 +15,7 @@ Idempotent NodeJS App which creates/updates a MongoDb Session from Redis Queue j
 - Redis Queue gets the jobs and checks for existing jobs handling the same **session creation task** before attempting to work on the database, which means that requests made simultaneously will not create multiple Session documents inside the database, and updating is done only if there are no active jobs modifying the same Session.
 
 ## Performance metrics
-Sending 10 requests consecutively with 0 delay using Postman Runner results in response codes of 200 only when there are no jobs running for the same Session
+Sending 10 requests consecutively with 0 delay using Postman Runner results in response codes of 200 only when there are no jobs running for the same Session.
 <br/>
 
 ![Performace metrics](./session_creation_performance.png?raw=true "Performance Metrics")

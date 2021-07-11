@@ -2,6 +2,7 @@
 
 ## Table of contents
 * [General info](#general-info)
+* [Performance](#performance-metrics)
 * [Technologies](#technologies-used)
 * [Setup](#setup-and-running)
 
